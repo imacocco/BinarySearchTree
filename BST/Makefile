@@ -14,7 +14,7 @@ all: $(EXE)
 
 
 $(EXE): $(OBJ)
-	$(CXX) $^ -o $(EXE) #$(LFLAGS)
+	$(CXX) $^ -o $(EXE) $(LFLAGS)
 
 main.o: src/bst.o include/bst.hpp 
 

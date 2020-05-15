@@ -1,12 +1,19 @@
 #include "bst.hpp"
 
-template < class K, class V, class cmp=std::less<K> > 
+
+/*
+template < class K, class V, class cmp> 
 template <typename O>
 class bst<K, V, cmp>::__iterator {
+  
+  using __it= typename bst<K,V,cmp>::__iterator<O>;
   using node = typename bst<K,V,cmp>::node;
+
   node* current;
 
- public:
+
+  public:
+  
   explicit __iterator(node* x) noexcept : current{x} {}
 
   using value_type = O;
@@ -17,7 +24,6 @@ class bst<K, V, cmp>::__iterator {
 
   reference operator*() const noexcept { return current->P; }
   pointer operator->() const noexcept { return &(*(*this)); }
-
   /*
   }
 
@@ -38,20 +44,15 @@ class bst<K, V, cmp>::__iterator {
 	  }
   */
 
-  if(t == NULL)
+  /*if(t == NULL){
             return;
         inorder(t->left);
         cout << t->data << " ";
         inorder(t->right);
     }
 
-  __iterator& operator++() noexcept {  // pre increment
-        if(iterator->right=nullptr)
-        	return;
 
-        
-        current = current->l.get();
-	    return *this;
+  __iterator& operator++() noexcept;  // pre increment
 
   friend bool operator==(const __iterator& a, const __iterator& b) {
 	    return a.current == b.current;
@@ -59,7 +60,83 @@ class bst<K, V, cmp>::__iterator {
   friend bool operator!=(const __iterator& a, const __iterator& b) {
 	    return !(a == b);
   }
-};
+};*/
+
+template <class K,class V, class cmp>
+std::ostream& operator<<(std::ostream& os, const bst<K,V,cmp>& tree){
+    auto tmp = tree.begin();
+    while (tmp){
+      os << *tmp->P.first << " " << *tmp->P.second << std::endl;
+      ++tmp;
+    }
+    return os;
+}
+
+template < class K, class V, class cmp>
+template <class O> 
+typename bst<K,V,cmp>::template __iterator<O>& bst<K,V,cmp>::template __iterator<O>::operator++() noexcept{
+    node *p;
+
+    /*if (current == nullptr){
+        // ++ from end(). get the root of the tree
+        current = bst->head.get();
+
+        // error! ++ requested for an empty tree
+        if (current == nullptr)
+        	throw UnderflowException { };
+
+        // move to the smallest value in the tree,
+        // which is the first node inorder
+        while (current->l != nullptr) {
+             current = current->l;
+        }
+    }*/
+    
+    //else
+        if (current->r != nullptr){
+        // successor is the farthest left node of
+        // right subtree
+            current = current->r;
+
+            while (current->l != nullptr) {
+                  current = current->l;
+            }
+        }
+        else{
+        	// have already processed the left subtree, and
+        	// there is no right subtree. move up the tree,
+        	// looking for a parent for which current is a left child,
+        	// stopping if the parent becomes NULL. a non-NULL parent
+        	// is the successor. if parent is NULL, the original node
+        	// was the last node inorder, and its successor
+        	// is the end of the list
+        	p = current->u;
+        	while (p != nullptr && current == p->r){
+                   current = p;
+                   p = p->u;
+            }
+
+            // if we were previously at the right-most node in
+            // the tree, current = nullptr, and the iterator specifies
+            // the end of the list
+            current = p;
+        }
+
+        return *this;
+}
+
+
+
+/*
+
+
+
+
+
+
+
+
+
 
 	template <class T>
 	typename List<T>::node* List<T>::tail() noexcept {
@@ -120,3 +197,5 @@ class bst<K, V, cmp>::__iterator {
 	  // }
 	  head = std::make_unique<node>(l.head);
 	}
+
+*/

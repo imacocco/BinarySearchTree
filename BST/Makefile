@@ -4,7 +4,7 @@ EXE = exe
 CXX = c++
 CXXFLAGS = -I include -std=c++14 -Wall -Wextra
 
-SRC = src/bst.cc main.cc
+SRC = main.cc
 OBJ = ${SRC:.cc=.o}
 
 all: $(EXE)
@@ -16,9 +16,9 @@ all: $(EXE)
 $(EXE): $(OBJ)
 	$(CXX) $^ -o $(EXE) $(LFLAGS)
 
-main.o: src/bst.o include/bst.hpp 
+main.o: include/bst.hpp include/node.hpp 
 
-src/bst.o: include/bst.hpp
+#src/bst.o: include/bst.hpp
 
 clean:
 	rm -rf src/*.o main.o $(EXE) */*~ *~

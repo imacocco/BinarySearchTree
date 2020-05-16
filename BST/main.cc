@@ -15,10 +15,11 @@ int main(){
   std::vector<int> key{1,4,3,7,9};
   std::vector<int> value{0,0,0,0,0};	
   print_vector(key,"key");
-  bst<int,int> tree{};
-  for(int i=0;i<key.size();i++){
+  BST::bst<int,int> tree{};
+  for(std::size_t i=0;i<key.size();i++){
   	tree.insert(std::pair<int,int>(key[i],value[i]));
   }
+  std::cout<<"ciao"<<std::endl;
   //std::cout<<tree<<std::endl;
   //tree.insert() 
   return 0;

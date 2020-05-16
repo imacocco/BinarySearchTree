@@ -1,0 +1,4 @@
+To check:
+
+bst(bst&& ) noexcept = default; perchè va bene?
+bst& operator=(bst&& ) noexcept = default; ??

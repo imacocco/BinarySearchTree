@@ -24,22 +24,22 @@ namespace BST{
 			std::unique_ptr<node_type> head;
 
 			
-			node_type* __begin() noexcept {
+			node_type* __begin() const noexcept{
+
+				if (!head) return nullptr;
 
 				auto t = head.get();
-				
-				while(t){
-					
+				while(t->left){
 					t=t->left.get();
 				}
-
+				
 				return t;
 
 			}
 
-			node_type* __end() noexcept{
+			node_type* __end() const noexcept {
 
-				auto t = head.get();
+				/*auto t = head.get();
 				
 				if(t == nullptr)
 					return t;
@@ -52,8 +52,9 @@ namespace BST{
 						t=t->right.get();
 					}
 
-					return t->right.get();
-				}
+					return t;
+				}*/
+				return nullptr;
 			
 			}
 
@@ -93,7 +94,7 @@ namespace BST{
             	return insert(pair_type{std::forward<Types>(args)...});
         	}
 
-	
+			
 
   			template<class OT>
 		  	std::pair<iterator, bool> insert(OT&& x){
@@ -101,6 +102,7 @@ namespace BST{
 		  		auto t = head.get();
 				
 				while(t){
+					//std::cout<<t->value.first<<std::endl;
 		        	if(op(x.first,t->value.first)){
 		        		if(t->left)
 		        			t=t->left.get();
@@ -135,13 +137,179 @@ namespace BST{
 			const_iterator end() const noexcept { return const_iterator{__end()};}
 			const_iterator cend() const noexcept { return const_iterator{__end()};}
 
+			
+			iterator find(const K& x){
+		
+				auto t = head.get();
+				while(t){
+					if(op(x,t->value.first)){
+						if(t->left)
+							t=t->left.get();
+						else 
+							return end();
+					}
+					else if(op(t->value.first, x)){
+						if(t->right)
+							t=t->right.get();
+						else 
+							return end();
+					}
+					else 
+						return iterator{t}; 
+				}
+				return iterator{nullptr};
+				
+			}
+
+			const_iterator find(const K& x) const{
+
+				auto t = head.get();
+				while(t){
+					if(op(x,t->value.first)){
+						if(t->left)
+							t=t->left.get();
+						else
+							return cend();
+					}
+					else if(op(t->value.first,x)){
+						if(t->right)
+							t=t->right.get();
+						else
+							return cend();
+					}
+					else
+						return const_iterator{t}; 
+					}
+				return const_iterator{nullptr};
+				
+			}
+
+			void clear(){
+				this->head.reset();
+			}
+
+
+			void erase(const K& x){
+				//std::cout<<"ciao"<<std::endl;
+				//std::cout<<find(x)->first<<std::endl;
+				auto it_erase = find(x);
+				auto node_to_erase = it_erase.current
+				
+				if( it_erase == end())
+					std::cout<< "The key is not present."<<std::endl; 
+				else{
+					auto father = node_to_erase->upper;		
+					
+					//first case the node to remove has no child 
+					if(node_to_erase->left == nullptr  && node_to_erase->right == nullptr){
+						
+						if(op(node_to_erase->value.first,father->value.first)){
+							father->left.reset();
+						} 
+						else
+							father->right.reset();
+					}
+					//second case the node has just right child
+					else if(node_to_erase->left == nullptr && node_to_erase->right != nullptr){
+						//and we set the upper pointer to nullptr
+						node_to_erase->upper=nullptr;
+						
+						//we set the upper pointer of the right child to its "grandfather"
+						auto child = it_node.current->right;
+						child->upper=father;
+						
+						//let's find if the node to be eliminated was a left or right child
+						
+						//this case is when the node to be eliminated was a left child
+						//and we reset the ownership 
+						if(op(node_to_erase->value.first,father->value.first))
+							father->left.reset(node_to_erase->right.release());
+						
+						//in this case was the right child
+						else
+							father->right.reset(node_to_erase->right.release());
+					}
+
+					//second case the node has just left child
+					else if(node_to_erase->left != nullptr && node_to_erase->right == nullptr){
+						//we set the upper pointer to nullptr
+						node_to_erase->upper=nullptr;
+						
+						//we set the upper pointer of the right child to its "grandfather"
+						auto child = node_to_erase->left;
+						child->upper=father;
+						
+						//let's find if the node to be eliminated was a left or right child
+						//this case is when the node to be eliminated was a left child
+						//and we reset the ownership 
+						if(op(node_to_erase->value.first,father->value.first)){
+							father->left.reset(node_to_erase->left.release());
+						} 
+						//in this case was the right child
+						else
+							father->right.reset(node_to_erase->left.release());						
+					}
+
+					//node to eliminate has two children
+
+					else{
+						
+						//find the successor 
+						auto node_successor=(++it_node).current;
+
+						//setting the upper pointer of the successor at the same value of
+						//the upper pointer of the node to eliminate and we 
+						//set to nullptr the upper one of the node to eliminate.
+						node_successor->upper=node_to_erase->upper;
+						node_to_erase->upper=nullptr;
+
+						//reset the successor's children of the node to the node's children
+						node_successor->right.reset(node_to_erase->right.release())
+						node_successor->left.reset(node_to_erase->left.release())
+
+					}
+
+
+				}
+			}
+
+
+
+
+
+
+
+			template<class OT>
+ 			V& operator[](OT&& x){
+ 				return insert(pair_type{std::forward<OT>(x), V()}).first->second;
+ 			} 
+
+
+
+
+
 			friend
 			std::ostream& operator<<(std::ostream& os, const bst& x){
-				for(auto i= x.begin(); i != x.end(); ++i){
-					std::cout AP_node::<< *i << std::endl;
+				
+				for ( auto v : x ){
+	    			std::cout << "Key = " << v.first << "\tValue = " << v.second  << std::endl;
 				}
-				return os;
+
+  				return os;
 			}
+
+  				
+				/*for(auto i=x.begin();i != x.end();i++){
+					std::cout<< i->first<<std::endl;
+				}
+				return os;*/
+  				
+ 
+
+
+
+
+				
 };
 #endif
 }

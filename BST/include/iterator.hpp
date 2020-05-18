@@ -54,7 +54,7 @@ namespace AP_it{
 	    }*/
     
     //else
-        if (current-> right != nullptr){
+        if (current -> right != nullptr){
         // successor is the farthest left node of
         // right subtree
             current = current->right.get();
@@ -102,6 +102,11 @@ namespace AP_it{
 	  friend bool operator!=(const __iterator& a, const __iterator& b) {
 		    return !(a == b);
 	  }
+
+	  /*void print_node(){
+	  	current->AP_node::print_node();
+	  	return;
+	  }*/
 
 
 	  template<typename K, typename V, typename cmp>

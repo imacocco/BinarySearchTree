@@ -38,10 +38,9 @@ namespace AP_node{
 		//~node();
 
 
-		template<class O>
-		friend std::ostream& operator<<(std::ostream& os, const node<O>& n){
-			os << "Key = " << n->v.first << "\tValue = " << n->v.second << std::endl;
-			return os;
+		void print_node(){
+			std::cout << "Key = " << value.first << "\tValue = " << value.second << std::endl;
+			return; 
 		};
 	
 

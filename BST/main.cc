@@ -19,9 +19,7 @@ int main(){
   for(std::size_t i=0;i<key.size();i++){
   	tree.insert(std::pair<int,int>(key[i],value[i]));
   }
-  std::cout<<"ciao"<<std::endl;
-  //std::cout<<tree<<std::endl;
-  //tree.insert() 
+  std::cout << tree << std::endl;
   return 0;
 
 

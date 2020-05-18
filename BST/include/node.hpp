@@ -19,7 +19,7 @@ namespace AP_node{
 		T value; 
 		std::unique_ptr<node<T>> left;
 		std::unique_ptr<node<T>> right;
-		std::shared_ptr<node<T>> upper; 
+		node<T>* upper; 
 
 		node() noexcept : value{}, left{nullptr}, right{nullptr}, upper{nullptr} {}
 

@@ -2,7 +2,7 @@ EXE = exe
 
 #LFLAGS = -lblass
 CXX = c++
-CXXFLAGS = -I include -std=c++14 -Wall -Wextra
+CXXFLAGS = -I include -g -std=c++14 -Wall -Wextra
 
 SRC = main.cc src/bst.cc
 OBJ = ${SRC:.cc=.o}

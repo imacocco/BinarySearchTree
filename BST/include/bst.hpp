@@ -189,91 +189,163 @@ namespace BST{
 			}
 
 
-			void erase(const K& x){
-				//std::cout<<"ciao"<<std::endl;
-				//std::cout<<find(x)->first<<std::endl;
-				auto it_erase = find(x);
-				auto node_to_erase = it_erase.current
+			void erase_head();
+
+			void erase_generic(iterator it_erase){
+
+				auto node_to_erase = it_erase.current;
 				
-				if( it_erase == end())
-					std::cout<< "The key is not present."<<std::endl; 
-				else{
-					auto father = node_to_erase->upper;		
-					
-					//first case the node to remove has no child 
-					if(node_to_erase->left == nullptr  && node_to_erase->right == nullptr){
+				auto father = node_to_erase->upper;		
 						
-						if(op(node_to_erase->value.first,father->value.first)){
+				//node_to erase has no child reset to nullptr the father's pointer
+				if(node_to_erase->left == nullptr  && node_to_erase->right == nullptr){
+						
+						node_to_erase->upper=nullptr;
+
+						if(op(node_to_erase->value.first,father->value.first))
 							father->left.reset();
-						} 
+						 
 						else
 							father->right.reset();
-					}
-					//second case the node has just right child
-					else if(node_to_erase->left == nullptr && node_to_erase->right != nullptr){
-						//and we set the upper pointer to nullptr
-						node_to_erase->upper=nullptr;
+				}
+				
+					
+				//second case the node has just right child
+				else if(node_to_erase->left.get() == nullptr && node_to_erase->right.get() != nullptr){
 						
 						//we set the upper pointer of the right child to its "grandfather"
-						auto child = it_node.current->right;
-						child->upper=father;
+						(node_to_erase->right)->upper=father;
 						
 						//let's find if the node to be eliminated was a left or right child
-						
-						//this case is when the node to be eliminated was a left child
-						//and we reset the ownership 
 						if(op(node_to_erase->value.first,father->value.first))
+							//this case is when the node to be eliminated was a left child
+							//and we reset the ownership 
 							father->left.reset(node_to_erase->right.release());
 						
 						//in this case was the right child
 						else
 							father->right.reset(node_to_erase->right.release());
-					}
+
+						//and we set the upper pointer to nullptr
+						node_to_erase->upper=nullptr;
+						
+				}
 
 					//second case the node has just left child
-					else if(node_to_erase->left != nullptr && node_to_erase->right == nullptr){
+				else if(node_to_erase->left.get() != nullptr && node_to_erase->right.get() == nullptr){
+						
+						//we set the upper pointer of the right child to its "grandfather"
+						(node_to_erase->left)->upper=father;
+						
+						//let's find if the node to be eliminated was a left or right child 
+						if(op(node_to_erase->value.first,father->value.first))
+							
+							father->left.reset(node_to_erase->left.release());
+						
+						//in this case was the right child
+						else
+							father->right.reset(node_to_erase->left.release());		
+
 						//we set the upper pointer to nullptr
 						node_to_erase->upper=nullptr;
 						
-						//we set the upper pointer of the right child to its "grandfather"
-						auto child = node_to_erase->left;
-						child->upper=father;
+				}
+
+				//node to eliminate has two children
+
+				else{
+					
+					//find the successor which will be on the right of the node_to_delete
+					auto node_successor=(++it_erase).current;
+				 
+					//reset the father of node's left child to node successor
+					(node_to_erase->left)->upper=node_successor;
+					
+					//reset the successor's left child to the left child of the node to erase
+					//we know for sure that the node_successor->left=nullptr
+					//otherwise wouldn't be the successor
+					node_successor->left.reset(node_to_erase->left.release());
+
+					//case 1) successor is the right child of the node to delete
+					if(node_successor==node_to_erase->right.get()){
 						
-						//let's find if the node to be eliminated was a left or right child
-						//this case is when the node to be eliminated was a left child
-						//and we reset the ownership 
-						if(op(node_to_erase->value.first,father->value.first)){
-							father->left.reset(node_to_erase->left.release());
-						} 
-						//in this case was the right child
-						else
-							father->right.reset(node_to_erase->left.release());						
-					}
-
-					//node to eliminate has two children
-
-					else{
-						
-						//find the successor 
-						auto node_successor=(++it_node).current;
-
-						//setting the upper pointer of the successor at the same value of
-						//the upper pointer of the node to eliminate and we 
-						//set to nullptr the upper one of the node to eliminate.
-						node_successor->upper=node_to_erase->upper;
+						//set the node_successor_father to father of the node to erase
+						node_successor->upper=father;
 						node_to_erase->upper=nullptr;
 
-						//reset the successor's children of the node to the node's children
-						node_successor->right.reset(node_to_erase->right.release())
-						node_successor->left.reset(node_to_erase->left.release())
+						//set the child of the father to node successor
+						if(op(node_to_erase->value.first,father->value.first))
+							//this case is when the node to be eliminated was a left child
+							//and we reset the ownership
+							father->left.reset(node_to_erase->right.release());
+
+						//in this case was the right child
+						else
+							father->right.reset(node_to_erase->right.release());	
 
 					}
+					//case 2) general case successor is not the right child of the node to delete
+					else{
+						
+						//if the successor has a child (which has to be a right child)
+						if (node_successor->right) {
+	            
+	            //we set the father of the right child to the father of the node successor
+	            //and we set as left child of the father this node 
+	            //for sure node_successor was a left child otherwise we are in the former case 
+	            (node_successor->right)->upper = node_successor->upper;
+	            (node_successor->upper)->left.reset(node_successor->right.release());
+	          
+	          }
 
+	          //set the right child of the node as the right child of the node_successor
+	           
+	          node_successor->right.reset(node_to_erase->right.release());
+	          (node_successor->right)->upper=node_successor;
+	                		
+	          //set the father of the node successor to be the father of the node_to_erase
+	          node_successor->upper=father;
+						node_to_erase->upper=nullptr;
 
+						//set the child of the father to node successor
+						if(op(node_to_erase->value.first,father->value.first))
+
+							//this case is when the node to be eliminated was a left child
+							//and we reset the ownership
+							father->left.reset(node_to_erase->right.release());
+						 
+						//in this case was the right child
+						else
+							father->right.reset(node_to_erase->right.release());	
+
+					} 
 				}
+	      return;
 			}
 
+			void erase(const K& x){
 
+				auto it_erase = find(x);
+				auto node_to_erase = it_erase.current;
+				
+				if( it_erase == end()){
+					std::cout<< "The key is not present."<<std::endl; 
+					return;
+				}
+				
+				else{
+
+					//case 1) node_to_erase=head
+					if(node_to_erase==head.get())
+						erase_head();
+					
+					//case 2) node_to_erase is generic
+					else 
+						erase_generic(it_erase);
+
+					return;
+    		}
+    	}
 
 
 

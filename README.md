@@ -58,12 +58,12 @@ It is contained within the `BST` namespace.
 We implemented some performance tests in the `main_benchmark.cc` file. In particular, we have checked the average time spent to find 200 random keys by means of `find()` operation implemented in BST for a balance and unbalanced tree againt the `find()` function in `std::map` and in `std::unordered_map`.
 We have run two tests on trees and maps in which we have inserted ordered and unordered keys.
 The case with ordered keys:
-![Ordered_data_1](Ordered_data_1.png)
+![Ordered_data_1](BST/Benchmark/Ordered_data_1.png)
 As it can be clearly seen the performance obtained for the Unbalanced_tree are extremly poor. This was expected as by inserting ordered data happens to have a single branch if the tree is not balanced. As it can be seen from the plot the average to find a key in the unbalanced case grows linearly with the members of the tree. As soon as the tree is balanced and its depth reduced as we can see in the following picture the performance are comparable on the order of magnitude with the both maps. 
-![Ordered_data_2](Ordered_data_2.png)
+![Ordered_data_2](BST/Benchmark/Ordered_data_2.png)
 Although, the maps outperforms the `find()` function applied to the balanced_tree. In particular the `std::unordered_map` appears to be the fastest ones. 
 In the case of randomized data insertions we have observed that the worst results are obtained by the balanced_tree while the unbalanced tree lies in between the two maps.
-![Unordered_data_2](Unordered_data.png)
+![Unordered_data_2](BST/Benchmark_unordered/Unordered_data.png)
 
 
 

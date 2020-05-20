@@ -10,169 +10,44 @@
 #include <string>
 timer<> t;
 
-template<class T>
-void FIND_AVE(T& my_map, std::size_t size, std::ofstream& file){
-  double mean=0;
-  double std=0;
-  std::size_t n_sample = 200;
-  for(std::size_t k=0;k<n_sample;k++){
-    int random_key = rand() % static_cast<int>(size);
-    t.start();
-    my_map.find(random_key);
-    auto appo=t.stop();
-    mean+=appo;
-    std+=appo*appo;
-  }
-  mean/=n_sample;
-  std=sqrt((std-mean*mean))/n_sample;
-  file<<size<< "\t"<<mean<<"\t"<<std<<std::endl;
-  return;
-}
-
-template<class T>
-void test_time_map(T& my_map, std::string nome,bool ordered){
-  std::ofstream file{nome};
-  for(std::size_t i=1000;i<50000;i+=1000){
-      std::vector<int> v(i);
-      std::iota(v.begin(),v.end(),0);
-      if(!ordered)
-        std::shuffle(v.begin(),v.end(),std::mt19937{std::random_device{}()});
-      for(std::size_t l=0;l<i;l++){
-          my_map[v[l]]=0;
-      }
-      FIND_AVE(my_map, i, file);
-/*      double mean=0;
-      double std=0;
-      std::size_t n_sample = 200;
-      for(std::size_t k=0;k<n_sample;k++){
-        int random_key= rand() % static_cast<int>(i);
-        t.start();
-        my_map.find(random_key);
-        auto appo=t.stop();
-        mean+=appo;
-        std+=appo*appo;
-      }
-      mean/=n_sample;
-      std=sqrt((std-mean*mean))/n_sample;
-      file<<i<< "\t"<<mean<<"\t"<<std<<std::endl;
-*/    my_map.clear();
-  }
-  return ;
-}
-
-void test_time_tree(std::string nome, bool balance, bool ordered){
-  std::ofstream file{nome};
-  BST::bst<int,int> tree{};
-  for(std::size_t i=1000;i<50000;i+=1000){
-      std::cout<<i<<std::endl;
-      std::vector<int> v(i);
-      std::iota(v.begin(),v.end(),0);
-      if(!ordered)
-        std::shuffle(v.begin(),v.end(),std::mt19937{std::random_device{}()});
-      for(std::size_t l=0;l<i;l++){
-          tree[v[l]];
-      }
-      if(balance) 
-        tree.balance();
-
-      double mean=0;
-      double std=0;
-      std::size_t n_sample = 200;
-      for(std::size_t k=0;k<n_sample;k++){
-        int random_key= rand() % static_cast<int>(i);
-        t.start();
-        tree.find(random_key);
-        auto appo=t.stop();
-        mean+=appo;
-        std+=appo*appo;
-      }
-      mean/=n_sample;
-      std=sqrt((std-mean*mean))/n_sample;
-      file<<i<< "\t"<<mean<<"\t"<<std<<std::endl;
-      tree.clear();
-  }
-  return ;
-}
-
-void test_time_tree1(std::string nome, bool balance, bool ordered_data){
-  std::ofstream file{nome};
-  BST::bst<int,int> tree{};
-  std::vector<int> v;
-  //cycle over number of (1000)*elements
-  for(std::size_t i=1;i<50;++i){
-      std::cout<<i<<std::endl;
-      //if we want to balance, we simply add the new values and rebalance the tree
-      //no difference if the initial data is ordered or not
-      if(balance){
-        for(std::size_t m = 0; m < 1000; ++m)
-          tree[m+i*1000];
-      
-        tree.balance();
-
-        FIND_AVE(tree, i, file);
-
-      }
-      //if we want to start from ordered data we just add them in order to the tree
-      else if (ordered_data){
-        for(std::size_t m = 0; m < 1000; ++m)
-          tree[m+i*1000];
-
-        FIND_AVE(tree, i, file);
-      
-      }
-      //otherwise we add the data to a vector which is reshuffled and then add to an empty tree
-      else{
-        for (std::size_t m = 0; m < 1000; ++m)
-          v.push_back(m+i*1000);
-
-        std::shuffle(v.begin(),v.end(),std::mt19937{std::random_device{}()});
-        for(std::size_t k = 0; k < i; ++k)
-          tree[v[k]];
-
-        FIND_AVE(tree, i, file);
-        tree.clear();
-
-      }
-  }
-  return ;
-}
-
-
 int main(){
 
-  /*
-  std::vector<int> key{1,2,3,4,5,6,7,8,9,10};
-  //std::vector<int> value{0,2,0,0,0};	
-  //print_vector(key,"key");
+  
+  std::vector<int> key{1,2,3,4,5};
   BST::bst<int,int> tree{};
   for(std::size_t i=0;i<key.size();i++){
   	tree.insert(std::pair<int,int>(key[i],0));
   }
-  //std::cout << tree;
+  std::cout<<"Printing the tree"<<std::endl;
+  std::cout << tree;
   
-  std::cout << tree<<std::endl;
-
-  tree.balance();*/
-
+  std::cout << "Value at the key=3 before = "<<tree[3]<<std::endl;
+  tree[3]=4;
+  std::cout<< "Value at the key=3 after = "<<tree[3]<<std::endl;
+  tree.erase(5);
+  std::cout<<"Without the key=5"<<std::endl;
+  std::cout<<tree<<std::endl;
   
-  //benchmark_ordered
-  std::map<int,int> or_map;
-  std::unordered_map<int,int> un_map;
-  bool ordered = true;
-  test_time_map(or_map,"Benchmark/Ordered_map.txt",ordered);
-  test_time_map(un_map,"Benchmark/Unordered_map.txt",ordered);
-  std::cout<<"Unbalanced_tree"<<std::endl;
-  test_time_tree1("Benchmark/Unbalanced_tree.txt",false,ordered);
-  std::cout<<"Balanced_tree"<<std::endl;
-  test_time_tree1("Benchmark/Balanced_tree.txt",true,ordered);
+  tree.emplace(12,3);
+  std::cout<<"After emplace of (12,3):"<<std::endl;
+  std::cout<<tree<<std::endl;
 
-  //benchmark unordered
-  ordered=false;
-  test_time_map(or_map,"Benchmark_unordered/Ordered_map.txt",ordered);
-  test_time_map(un_map,"Benchmark_unordered/Unordered_map.txt",ordered);
-  test_time_tree1("Benchmark_unordered/Unbalanced_tree.txt",false,ordered);
-  test_time_tree1("Benchmark_unordered/Balanced_tree.txt",true,ordered);
+  BST::bst<int,int> tree_copy{tree};
+  tree.emplace(7,1);
+  std::cout<<"Printing tree_copy after modification of tree -> tree_copy has not changed -> deep copy"<<std::endl;
+  std::cout<<tree_copy<<std::endl;
 
+  BST::bst<int,int> tree_move{std::move(tree)};
+  tree.emplace(10,1);
+  std::cout<<"Printing the original tree after it is moved to tree_move and performing an emplace(10,1)"<<std::endl;
+  std::cout<<tree<<std::endl;
+
+  std::cout<<"Printing the original tree which was moved to tree_move"<<std::endl;
+  std::cout<< tree_move<<std::endl;
+
+  tree.clear();
+  std::cout<<"After clearing the tree has nothing:"<<std::endl;
+  std::cout<<tree<<std::endl;
   return 0;
 
 

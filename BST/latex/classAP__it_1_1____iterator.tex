@@ -1,0 +1,55 @@
+\hypertarget{classAP__it_1_1____iterator}{}\section{A\+P\+\_\+it\+:\+:\+\_\+\+\_\+iterator$<$ node, O $>$ Class Template Reference}
+\label{classAP__it_1_1____iterator}\index{A\+P\+\_\+it\+::\+\_\+\+\_\+iterator$<$ node, O $>$@{A\+P\+\_\+it\+::\+\_\+\+\_\+iterator$<$ node, O $>$}}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classAP__it_1_1____iterator_a75d953d4a4b92a7812715bcfc0836c9c}\label{classAP__it_1_1____iterator_a75d953d4a4b92a7812715bcfc0836c9c}} 
+using {\bfseries value\+\_\+type} = O
+\item 
+\mbox{\Hypertarget{classAP__it_1_1____iterator_a24fab44b4ad74c525f384feeb2aa293a}\label{classAP__it_1_1____iterator_a24fab44b4ad74c525f384feeb2aa293a}} 
+using {\bfseries difference\+\_\+type} = std\+::ptrdiff\+\_\+t
+\item 
+\mbox{\Hypertarget{classAP__it_1_1____iterator_affe71c2d2921afc842c1376fee3d4938}\label{classAP__it_1_1____iterator_affe71c2d2921afc842c1376fee3d4938}} 
+using {\bfseries iterator\+\_\+category} = std\+::forward\+\_\+iterator\+\_\+tag
+\item 
+\mbox{\Hypertarget{classAP__it_1_1____iterator_a1f3171a408f89aef2cd4867c33f73136}\label{classAP__it_1_1____iterator_a1f3171a408f89aef2cd4867c33f73136}} 
+using {\bfseries reference} = value\+\_\+type \&
+\item 
+\mbox{\Hypertarget{classAP__it_1_1____iterator_accace5c026fd451cedd52ae6cb8020c9}\label{classAP__it_1_1____iterator_accace5c026fd451cedd52ae6cb8020c9}} 
+using {\bfseries pointer} = value\+\_\+type $\ast$
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classAP__it_1_1____iterator_a7286a573bdc1fa300c664c316564c1a2}\label{classAP__it_1_1____iterator_a7286a573bdc1fa300c664c316564c1a2}} 
+{\bfseries \+\_\+\+\_\+iterator} (node $\ast$x) noexcept
+\item 
+\mbox{\Hypertarget{classAP__it_1_1____iterator_a8bbe7fd8bc25d7f80eecdec977272828}\label{classAP__it_1_1____iterator_a8bbe7fd8bc25d7f80eecdec977272828}} 
+reference {\bfseries operator$\ast$} () const noexcept
+\item 
+\mbox{\Hypertarget{classAP__it_1_1____iterator_ad592364949f9c5ff5173f39d31f0eb11}\label{classAP__it_1_1____iterator_ad592364949f9c5ff5173f39d31f0eb11}} 
+pointer {\bfseries operator-\/$>$} () const noexcept
+\item 
+\mbox{\Hypertarget{classAP__it_1_1____iterator_a54350866b6f1b6a9be788805a1982142}\label{classAP__it_1_1____iterator_a54350866b6f1b6a9be788805a1982142}} 
+\hyperlink{classAP__it_1_1____iterator}{\+\_\+\+\_\+iterator} \& {\bfseries operator++} () noexcept
+\item 
+\mbox{\Hypertarget{classAP__it_1_1____iterator_a690a182c9ef272c5acca82bb2dfe211e}\label{classAP__it_1_1____iterator_a690a182c9ef272c5acca82bb2dfe211e}} 
+\hyperlink{classAP__it_1_1____iterator}{\+\_\+\+\_\+iterator} {\bfseries operator++} (int) noexcept
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classAP__it_1_1____iterator_a58ed1dfd1f1b7dd9f3d4f2695f53ac12}\label{classAP__it_1_1____iterator_a58ed1dfd1f1b7dd9f3d4f2695f53ac12}} 
+{\footnotesize template$<$typename K , typename V , typename cmp $>$ }\\class {\bfseries B\+S\+T\+::bst}
+\item 
+\mbox{\Hypertarget{classAP__it_1_1____iterator_a2e5014cb825532053115734598e16318}\label{classAP__it_1_1____iterator_a2e5014cb825532053115734598e16318}} 
+bool {\bfseries operator==} (const \hyperlink{classAP__it_1_1____iterator}{\+\_\+\+\_\+iterator} \&a, const \hyperlink{classAP__it_1_1____iterator}{\+\_\+\+\_\+iterator} \&b)
+\item 
+\mbox{\Hypertarget{classAP__it_1_1____iterator_add0144e7693bde5e4b509b5fd8dc5c96}\label{classAP__it_1_1____iterator_add0144e7693bde5e4b509b5fd8dc5c96}} 
+bool {\bfseries operator!=} (const \hyperlink{classAP__it_1_1____iterator}{\+\_\+\+\_\+iterator} \&a, const \hyperlink{classAP__it_1_1____iterator}{\+\_\+\+\_\+iterator} \&b)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/iterator.\+hpp\end{DoxyCompactItemize}

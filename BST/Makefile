@@ -1,20 +1,29 @@
-EXE = exe
+EXE = test
 
 #LFLAGS = -lblass
 CXX = c++
-CXXFLAGS = -I include -g -std=c++14 -Wall -Wextra #-D __DEBUG_AP_BST
+CXXFLAGS = -I include -g -std=c++14 -Wall -Wextra
 
 SRC = main.cc src/bst.cc
+SRC_B = main_benchmark.cc src/bst.cc
+
 OBJ = ${SRC:.cc=.o}
+OBJ_B = ${SRC_B:.cc=.o}
+
 LIB = include/bst.hpp include/node.hpp include/iterator.hpp
 all: $(EXE)
 
 %.o: %.cc
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
 
-
+benchmark: $(OBJ_B)
+	$(CXX) $^ -o benchmark $(LFLAGS)	
+	
 $(EXE): $(OBJ)
 	$(CXX) $^ -o $(EXE) $(LFLAGS)
+
+documentation: Doxygen/doxy.in
+	doxygen $^
 
 main.o: $(LIB) 
 

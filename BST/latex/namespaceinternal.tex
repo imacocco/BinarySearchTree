@@ -1,0 +1,65 @@
+\hypertarget{namespaceinternal}{}\section{internal Namespace Reference}
+\label{namespaceinternal}\index{internal@{internal}}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structinternal_1_1AssertHelper}{Assert\+Helper}
+\item 
+class \hyperlink{classinternal_1_1MessageHandler}{Message\+Handler}
+\item 
+class \hyperlink{classinternal_1_1NullStream}{Null\+Stream}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Validity of pre-\/ and post-\/conditions and any other requirements must be properly checked. To this aim, in this file a collection of A\+P\+\_\+\+A\+S\+S\+E\+R\+Ts and A\+P\+\_\+\+E\+R\+R\+O\+Rs is provided. The assertions (and checks) are performed only when the code is compiled without the -\/\+D\+N\+D\+E\+B\+UG flag. Assertions are never enough. Put as many assertions as you can without any worry for loss of performance (in release).
+
+Example of usage
+
+A\+P\+\_\+\+A\+S\+S\+E\+R\+T(condition);
+
+A\+P\+\_\+\+A\+S\+S\+E\+R\+T(condition) $<$$<$ \char`\"{}optional additional message\char`\"{} $<$$<$ std\+::endl;
+
+A\+P\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+I\+N\+\_\+\+R\+A\+N\+G\+E(element,min,max); // check if element belongs to \mbox{[}min,max\mbox{]}
+
+A\+P\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+E\+Q(a,b); // check if a == b, do not use with floating point numbers
+
+A\+P\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+L\+T(a,b); // check if a $<$ b
+
+A\+P\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+L\+E(a,b); // check if a $<$= b
+
+A\+P\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+G\+T(a,b); // check if a $>$ b
+
+A\+P\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+G\+E(a,b); // check if a $>$= b
+
+All the above, by default, throw std\+::runtime\+\_\+error.
+
+If you whant to throw your own exception type you can use the macro A\+P\+\_\+\+A\+S\+S\+E\+RT as follows
+
+A\+P\+\_\+\+A\+S\+S\+E\+R\+T(condition, exception\+\_\+type);
+
+A\+P\+\_\+\+A\+S\+S\+E\+R\+T(condition, exception\+\_\+type) $<$$<$ \char`\"{}optional\char`\"{} $<$$<$ \char`\"{} message\char`\"{} $<$$<$ std\+::endl;
+
+The only constraint on the exception\+\_\+type is that it must have a constructor that takes a const std\+::string\& or a const char $\ast$ (as the std\+::exceptions). For example
+
+struct my\+\_\+exception\+: public std\+::runtime\+\_\+error\{ using std\+::runtime\+\_\+error\+::runtime\+\_\+error; // using the same constructors // of the parent \};
+
+A\+P\+\_\+\+A\+S\+S\+E\+R\+T(1$>$2,my\+\_\+exception); // it will throw my\+\_\+exception
+
+If you want/need to create a specific type of assert with all the parameters you want you can do as follows
+
+\#define A\+P\+\_\+\+A\+S\+S\+E\+R\+T\+\_\+\+C\+U\+S\+T\+O\+M(a,b,c,d) \textbackslash{} {\itshape A\+P\+\_\+\+A\+S\+S\+E\+RT}( ( (a$<$b) \&\& (c$>$d) ) $\vert$$\vert$ (b == c), std\+::runtime\+\_\+error) \textbackslash{} $<$$<$ \char`\"{}all \char`\"{} $<$$<$ \char`\"{}what you whant to write to debug \char`\"{} $<$$<$ a $<$$<$ \char`\"{} \char`\"{} $<$$<$ b $<$$<$ \char`\"{} \char`\"{} \textbackslash{} $<$$<$ c $<$$<$ \char`\"{} and \char`\"{} $<$$<$ d $<$$<$ std\+::endl;
+
+of course you are free to replace std\+::runtime\+\_\+error to any exception you like that can be constructed as explained before.
+
+If a condition must be always checked (i.\+e., also when the code is compiled in release mode), use the A\+P\+\_\+\+E\+R\+R\+OR interface
+
+A\+P\+\_\+\+E\+R\+R\+O\+R(condition); // throws an std\+::rutime\+\_\+error
+
+A\+P\+\_\+\+E\+R\+R\+O\+R(condition) $<$$<$ \char`\"{}optional\char`\"{} $<$$<$ \char`\"{} message\char`\"{} $<$$<$ std\+::endl;
+
+If you need to throw a particular exception, the syntax and the requirements are the same for the assertions explained above.
+
+A\+P\+\_\+\+E\+R\+R\+O\+R(condition, exception\+\_\+type); A\+P\+\_\+\+E\+R\+R\+O\+R(condition, exception\+\_\+type) $<$$<$ \char`\"{}optional\char`\"{} $<$$<$ \char`\"{} message\char`\"{} $<$$<$ std\+::endl;
+
+The user should use only the above interface. All the rest of this file are technical details and for this reason they are put inside an internal namespace 

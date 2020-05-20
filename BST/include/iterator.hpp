@@ -7,6 +7,11 @@ namespace BST {
     template<typename K, typename V, typename cmp>
     class bst;
 }
+
+//iterator class for the bst_tree with nodes having left and right children. 
+//The iterator has a pointer to a node called current.
+//The aim of these iterators is to move easily following the nodes 
+
 namespace AP_it{
 	template <typename node,typename O>
 	class __iterator{
@@ -23,37 +28,14 @@ namespace AP_it{
 	  using reference = value_type&; 
 	  using pointer = value_type*;
 
-	  reference operator*() const noexcept { return current -> value; }
-	  pointer operator->() const noexcept { return &(*(*this)); }
-	  
-	    /*if(t == NULL){
-	            return;
-	        inorder(t->left);
-	        cout << t->data << " ";
-	        inorder(t->right);
-	    }*/
+	  reference operator*() const noexcept { return current -> value; } 
+	  pointer operator->() const noexcept { return &(*(*this)); } 
 
-
+	  //pre-increment operator ++ to get the in order successor along the tree
 	  __iterator& operator++() noexcept{
 		
 		node* p;		  	
 
-	    /*if (current == nullptr){
-	        // ++ from end(). get the root of the tree
-	        current = bst->head.get();
-
-	        // error! ++ requested for an empty tree
-	        if (current == nullptr)
-	        	throw UnderflowException { };
-
-	        // move to the smallest value in the tree,
-	        // which is the first node inorder
-	        while (current -> l != nullptr) {
-	             current = current->l;
-	        }
-	    }*/
-    
-    //else
         if (current -> right != nullptr){
         // successor is the farthest left node of
         // right subtree
@@ -67,7 +49,7 @@ namespace AP_it{
         	// have already processed the left subtree, and
         	// there is no right subtree. move up the tree,
         	// looking for a parent for which current is a left child,
-        	// stopping if the parent becomes NULL. a non-NULL parent
+        	// stopping if the parent becomes nullptr. a non-nullptr parent
         	// is the successor. if parent is NULL, the original node
         	// was the last node inorder, and its successor
         	// is the end of the list
@@ -86,14 +68,13 @@ namespace AP_it{
         return *this;
 	  }
 
+	  //post-increment operator ++
 	  __iterator operator++(int) noexcept {
 		    __iterator tmp{current};
 		    ++(*this);
 		    return tmp;
 	  }
 	  
-
-	    // pre increment
 
 	  friend bool operator==(const __iterator& a, const __iterator& b) {
 		    return a.current == b.current;
@@ -103,12 +84,7 @@ namespace AP_it{
 		    return !(a == b);
 	  }
 
-	  /*void print_node(){
-	  	current->AP_node::print_node();
-	  	return;
-	  }*/
-
-
+	  //we set as friend class the bst class in order to be able to access the data member
 	  template<typename K, typename V, typename cmp>
       friend class 	BST::bst;
 

@@ -2,3 +2,5 @@ To check:
 
 bst(bst&& ) noexcept = default; perchè va bene?
 bst& operator=(bst&& ) noexcept = default; ??
+
+N.B. ricorda la storia dei template che devono essere declinati in fase di compilazione in base a come vengono usati -> le librerie .cc devono essere incluse negli header da cui il main compra

@@ -2,7 +2,7 @@ EXE = exe
 
 #LFLAGS = -lblass
 CXX = c++
-CXXFLAGS = -I include -g -std=c++14 -Wall -Wextra
+CXXFLAGS = -I include -g -std=c++14 -Wall -Wextra #-D __DEBUG_AP_BST
 
 SRC = main.cc src/bst.cc
 OBJ = ${SRC:.cc=.o}

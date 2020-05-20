@@ -82,6 +82,9 @@ void BST::bst<K,V,cmp>::sortedArrayToBST(std::vector<std::pair<const K,V>> data,
     return;  
   /* Get the middle element and make it root */
   int mid = (start + end)/2; 
+  #ifdef __DEBUG_AP_BST
+  std::cout << "Inserting " << data[mid].first << " in place " << mid << std::endl;
+  #endif
   balanced_tree.insert(data[mid]);  
 
   /* Recursively construct the left subtree  

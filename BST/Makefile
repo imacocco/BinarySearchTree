@@ -11,7 +11,7 @@ OBJ = ${SRC:.cc=.o}
 OBJ_B = ${SRC_B:.cc=.o}
 
 LIB = include/bst.hpp include/node.hpp include/iterator.hpp
-all: $(EXE)
+all: $(EXE) documentation benchmark
 
 %.o: %.cc
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
@@ -30,8 +30,8 @@ main.o: $(LIB)
 src/bst.o: $(LIB)
 
 clean:
-	rm -rf src/*.o main.o $(EXE) */*~ *~
+	rm -rf src/*.o main.o $(EXE) */*~ *~ latex html
 
-.PHONY: clean all
+.PHONY: clean all documentation
 
 

@@ -3,10 +3,11 @@
 
 #include "bst.hpp"
 
-//*******************************************************
-//COPY CONSTRUCTOR: deep copy of a given tree
+/*
+ *COPY CONSTRUCTOR: deep copy of a given tree
+ */
 template < class K, class V, class cmp >
-BST::bst<K,V,cmp>::bst(const BST::bst<K,V,cmp>& tree){
+BST::bst<K,V,cmp>::bst(const BST::bst<K,V,cmp>& tree) noexcept{
   for(auto i=tree.begin(); i != tree.end(); ++i){
       (*this).insert(*i);
   }
@@ -115,7 +116,7 @@ void BST::bst<K,V,cmp>::sortedArrayToBST(std::vector<std::pair<const K,V>> data,
 //*******************************************************
 //ERASE: Given a key it finds if present and 
 //in such case it removes the node  
-//and it joins repairs the tree without that node
+//and it repairs the tree without that node
 template < class K, class V, class cmp >
 void BST::bst<K,V,cmp>::erase(const K& x){
 

@@ -4,31 +4,57 @@
 #include <memory>  // std::unique_ptr
 #include <iostream> //std::cout
 #include <utility>  // std::pair
-#include "ap_error.h"
 
 namespace AP_node{
 
-	// Definition and declaration of the templated node structure 
-	// which will be inserted in the Binary Tree structure
-	// The nodes have a value and they have three pointers pointing to right/left children and parent.
+	/** 
+	 * Definition and declaration of the templated node structure 
+	 * which will be inserted in the Binary Tree structure.
+	 * The nodes have a value and they have three pointers pointing to right/left children and parent.
+	 */ 
 
 	template<class T>
 	struct node{
 
-		T value; 
+		/**
+		 * templated value contained by the node
+		 */
+		T value;
+
+		/**
+		 * unique pointer to the left child (which is clearly a node templated on the value type)
+		 */		 
 		std::unique_ptr<node<T>> left;
+		/**
+		 * unique pointer to the right child
+		 */		
 		std::unique_ptr<node<T>> right;
-		node<T>* upper; //this one is not a unique_ptr because it will be shared with the other children
+		/**
+		 * pointer to the upper (parent) node. It cannot be unique as it can be possibly pointed
+		 * by two different childern
+		 */		
+		node<T>* upper;
 
-		node() noexcept : value{}, left{nullptr}, right{nullptr}, upper{nullptr} {} //constructor setting value to zero and to nullptr all the pointers
+		/**
+		 * standard constructor setting the value to zero and to nullptr all the pointers
+		 */
+		explicit node() noexcept : value{}, left{nullptr}, right{nullptr}, upper{nullptr} {} 
 
-	    node(const T& v, node<T>* pu) noexcept : value{v}, left{nullptr}, right{nullptr}, upper{pu}{  //custom ctor with value of the pointer for the father
-	      #ifdef __DEBUG_NODE
-          std::cout << "CALL: custom ctor AP_node::node" << std::endl;
-          #endif
+		/**
+		 * custom constructor copying the value and setting only the upper pointer.
+		 * Used whenever a left-value is given for the insertion in the tree
+		 */
+    explicit node(const T& v, node<T>* pu) noexcept : value{v}, left{nullptr}, right{nullptr}, upper{pu}{ 
+      #ifdef __DEBUG_NODE
+        std::cout << "CALL: custom ctor AP_node::node" << std::endl;
+      #endif
 		}
 
-		node(T&& v, node<T>* pu) noexcept : value{std::move(v)}, left{nullptr}, right{nullptr}, upper{pu}{ //move ctor
+		/**
+		 * custom move constructor, moving the value to the node and setting only the upper pointer.
+		 * Used whenever a right-value is given for the insertion in the tree
+		 */
+		explicit node(T&& v, node<T>* pu) noexcept : value{std::move(v)}, left{nullptr}, right{nullptr}, upper{pu}{
 	      #ifdef __DEBUG_NODE
           std::cout << "CALL: custom mctor AP_node::node" << std::endl;
           #endif

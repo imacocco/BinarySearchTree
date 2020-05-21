@@ -1,6 +1,6 @@
 # Advanced Programming - Binary Search Tree
 
-Binary Search Tree implementation for the Advanced Programming course 2019-2020 course.
+Binary Search Tree implementation for the Advanced Programming 2019-2020 course.
 
 Authors:
 
@@ -9,17 +9,19 @@ Authors:
 
 ## Documentation
 
-Doxygen to be inserted
+We built a standard Doxygen documentation in both html and pdf formats. Those can be found in the respective folders.
 
 ## How to Compile & Run
 
-### Using `Makefile`
+### How to use the `Makefile`
 
-+ In order to compile the source files and run the test file in which we have tested all the 
+All the code can be foud in the folder BST. The `make` commands are all supposed to be run in it.
+
++ In order to compile the source files and run the test executable in which we have tested all the 
 features and the function of the BST:
   
   ```bash
-  make
+  make test
   ./test
   ```
 
@@ -34,11 +36,28 @@ features and the function of the BST:
   
   ```bash
   make documentation
+  cd latex
+  make
+  ```
+  This will generate a pdf document named Refman.pdf in latex/ folder
+
++ To generate all the previous files in one shot just run
+  
+  ```bash
+  make
+  ```
+  or 
+
+  ```bash
+  make all
+  ```
++ To clean everything and recompile from scratch run
+
+  ```bash
+  make clean
   ```
   
-  The documentation is built into `./doc/_build/`; to open the HTML documentation, open the file `./doc/_build/html/index.html`. Notice that the HTML documentation is already automatically built on each commit at [ap-bst.readthedocs.io](https://ap-bst.readthedocs.io/).
-
-The executable has been compiled using `g++ (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0`. We run it with `valgrind` and no memory leaks were reported. 
+The executables have been compiled using `g++ (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0`. We ran everything with `valgrind` and no memory leaks were reported. 
 
 ## Code structure
 

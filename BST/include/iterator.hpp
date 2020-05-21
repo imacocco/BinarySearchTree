@@ -8,11 +8,14 @@ namespace BST {
     class bst;
 }
 
-//iterator class for the bst_tree with nodes having left and right children. 
-//The iterator has a pointer to a node called current.
-//The aim of these iterators is to move easily following the nodes 
 
 namespace AP_it{
+
+	/**
+ 	 * Iterator class for the bst_tree with nodes having left and right children. 
+ 	 * The iterator has a pointer to a node called current.
+ 	 * The aim of these iterators is to move easily following the nodes 
+ 	 */
 	template <typename node,typename O>
 	class __iterator{
 	  
@@ -20,7 +23,10 @@ namespace AP_it{
 	
 	  public:
 	  
-	  __iterator(node* x) noexcept : current{x} {}
+	  /**
+	   * Explicit constructor of iterator, it initializes its temporary node to given a node
+	   */
+	  explicit __iterator(node* x) noexcept : current{x} {}
 
 	  using value_type = O;
 	  using difference_type = std::ptrdiff_t;
@@ -28,12 +34,24 @@ namespace AP_it{
 	  using reference = value_type&; 
 	  using pointer = value_type*;
 
+	  /**
+	   * Dereferent operator, it dereference the iterator returning the value of the node 
+	   * the iterator is pointing to
+	   */
 	  reference operator*() const noexcept { return current -> value; } 
+
+	  /**
+	   * Arrow operator, it returns a pointer to the value of the node 
+	   * the iterator is pointing to
+	   */	  
 	  pointer operator->() const noexcept { return &(*(*this)); } 
 
-	  //pre-increment operator ++ to get the in order successor along the tree
+	  /**
+	   * pre-increment operator ++, it easily moves from a node to the in order successor node 
+	   * along the tree
+	   */
 	  __iterator& operator++() noexcept{
-		
+		// allocate a pointer to a temporary node
 		node* p;		  	
 
         if (current -> right != nullptr){
@@ -68,18 +86,26 @@ namespace AP_it{
         return *this;
 	  }
 
-	  //post-increment operator ++
+	  /**
+	   * post-increment operator ++, create a temporary iterator to the current node
+	   * and then increase current with pre-increment 
+	   */
 	  __iterator operator++(int) noexcept {
 		    __iterator tmp{current};
 		    ++(*this);
 		    return tmp;
 	  }
 	  
-
+	  /**
+	   * two iterators are equal if they point to the same node
+	   */
 	  friend bool operator==(const __iterator& a, const __iterator& b) {
 		    return a.current == b.current;
 	  }
 
+	  /**
+	   * not equal
+	   */	  
 	  friend bool operator!=(const __iterator& a, const __iterator& b) {
 		    return !(a == b);
 	  }

@@ -65,16 +65,78 @@ $(function() {
 <div class="title">timer&lt; Clock, Duration &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="timer_8hpp_source.html">timer.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a52e8bc315f5d16d70361b4917d6b6b90"><td class="memItemLeft" align="right" valign="top"><a id="a52e8bc315f5d16d70361b4917d6b6b90"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>start</b> ()</td></tr>
+<tr class="memitem:a52e8bc315f5d16d70361b4917d6b6b90"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtimer.html#a52e8bc315f5d16d70361b4917d6b6b90">start</a> ()</td></tr>
 <tr class="separator:a52e8bc315f5d16d70361b4917d6b6b90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba4d20a93d34f73f3b6d728aa4054235"><td class="memItemLeft" align="right" valign="top"><a id="aba4d20a93d34f73f3b6d728aa4054235"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>stop</b> ()</td></tr>
+<tr class="memitem:aba4d20a93d34f73f3b6d728aa4054235"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtimer.html#aba4d20a93d34f73f3b6d728aa4054235">stop</a> ()</td></tr>
 <tr class="separator:aba4d20a93d34f73f3b6d728aa4054235"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename Clock = std::chrono::steady_clock, typename Duration = typename Clock::duration&gt;<br />
+class timer&lt; Clock, Duration &gt;</h3>
+
+<p>class used in main_benchmark.cc in order to simply measure an initial and final times of an operation </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a52e8bc315f5d16d70361b4917d6b6b90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52e8bc315f5d16d70361b4917d6b6b90">&#9670;&nbsp;</a></span>start()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Clock  = std::chrono::steady_clock, typename Duration  = typename Clock::duration&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classtimer.html">timer</a>&lt; Clock, Duration &gt;::start </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>set initial time </p>
+
+</div>
+</div>
+<a id="aba4d20a93d34f73f3b6d728aa4054235"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba4d20a93d34f73f3b6d728aa4054235">&#9670;&nbsp;</a></span>stop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Clock  = std::chrono::steady_clock, typename Duration  = typename Clock::duration&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double <a class="el" href="classtimer.html">timer</a>&lt; Clock, Duration &gt;::stop </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>set final time, diirectly returing the difference </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/<a class="el" href="timer_8hpp_source.html">timer.hpp</a></li>
 </ul>

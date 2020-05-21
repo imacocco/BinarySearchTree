@@ -21,15 +21,18 @@ int main(){
   std::cout<<"Printing the tree"<<std::endl;
   std::cout << tree;
   
-  std::cout << "Value at the key=3 before = "<<tree[3]<<std::endl;
+  std::cout << "Value at the key=3 before put to operation: "<<tree[3]<<std::endl;
+  std::cout << "tree[3]=4"<<std::endl;
   tree[3]=4;
-  std::cout<< "Value at the key=3 after = "<<tree[3]<<std::endl;
+  std::cout<< "Value at the key=3 after put to operation: "<<tree[3]<<std::endl;
+
+  std::cout<< "call of tree.erase(5)" << std::endl;
   tree.erase(5);
   std::cout<<"Without the key=5"<<std::endl;
   std::cout<<tree<<std::endl;
   
   tree.emplace(12,3);
-  std::cout<<"After emplace of (12,3):"<<std::endl;
+  std::cout<<"After call of emplace(12,3):"<<std::endl;
   std::cout<<tree<<std::endl;
 
   BST::bst<int,int> tree_copy{tree};
@@ -48,6 +51,16 @@ int main(){
   tree.clear();
   std::cout<<"After clearing the tree has nothing:"<<std::endl;
   std::cout<<tree<<std::endl;
+
+  std::cout << "test std::pair< std::string, std::string >" << std::endl;
+  BST::bst<std::string, std::string > STR{};
+  std::cout << "create and insert a pair:\nauto b = std::pair< std::string,std::string >('b', 'second element')\nSTR.insert(b)\n" << std::endl;
+  auto a = std::pair<std::string,std::string>("b", "second element");
+  STR.insert(a);
+  std::cout << "emplace a pair: STR.emplace('a', 'first element')\n" << std::endl;
+  STR.emplace("a", "first element");
+  std::cout << "print the tree" << std::endl;
+  std::cout << STR << std::endl;
   return 0;
 
 

@@ -1,5 +1,9 @@
 \hypertarget{classAP__it_1_1____iterator}{}\section{A\+P\+\_\+it\+:\+:\+\_\+\+\_\+iterator$<$ node, O $>$ Class Template Reference}
 \label{classAP__it_1_1____iterator}\index{A\+P\+\_\+it\+::\+\_\+\+\_\+iterator$<$ node, O $>$@{A\+P\+\_\+it\+::\+\_\+\+\_\+iterator$<$ node, O $>$}}
+
+
+{\ttfamily \#include $<$iterator.\+hpp$>$}
+
 \subsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
@@ -21,20 +25,15 @@ using {\bfseries pointer} = value\+\_\+type $\ast$
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classAP__it_1_1____iterator_a7286a573bdc1fa300c664c316564c1a2}\label{classAP__it_1_1____iterator_a7286a573bdc1fa300c664c316564c1a2}} 
-{\bfseries \+\_\+\+\_\+iterator} (node $\ast$x) noexcept
+\hyperlink{classAP__it_1_1____iterator_a7286a573bdc1fa300c664c316564c1a2}{\+\_\+\+\_\+iterator} (node $\ast$x) noexcept
 \item 
-\mbox{\Hypertarget{classAP__it_1_1____iterator_a8bbe7fd8bc25d7f80eecdec977272828}\label{classAP__it_1_1____iterator_a8bbe7fd8bc25d7f80eecdec977272828}} 
-reference {\bfseries operator$\ast$} () const noexcept
+reference \hyperlink{classAP__it_1_1____iterator_a8bbe7fd8bc25d7f80eecdec977272828}{operator$\ast$} () const noexcept
 \item 
-\mbox{\Hypertarget{classAP__it_1_1____iterator_ad592364949f9c5ff5173f39d31f0eb11}\label{classAP__it_1_1____iterator_ad592364949f9c5ff5173f39d31f0eb11}} 
-pointer {\bfseries operator-\/$>$} () const noexcept
+pointer \hyperlink{classAP__it_1_1____iterator_ad592364949f9c5ff5173f39d31f0eb11}{operator-\/$>$} () const noexcept
 \item 
-\mbox{\Hypertarget{classAP__it_1_1____iterator_a54350866b6f1b6a9be788805a1982142}\label{classAP__it_1_1____iterator_a54350866b6f1b6a9be788805a1982142}} 
-\hyperlink{classAP__it_1_1____iterator}{\+\_\+\+\_\+iterator} \& {\bfseries operator++} () noexcept
+\hyperlink{classAP__it_1_1____iterator}{\+\_\+\+\_\+iterator} \& \hyperlink{classAP__it_1_1____iterator_a54350866b6f1b6a9be788805a1982142}{operator++} () noexcept
 \item 
-\mbox{\Hypertarget{classAP__it_1_1____iterator_a690a182c9ef272c5acca82bb2dfe211e}\label{classAP__it_1_1____iterator_a690a182c9ef272c5acca82bb2dfe211e}} 
-\hyperlink{classAP__it_1_1____iterator}{\+\_\+\+\_\+iterator} {\bfseries operator++} (int) noexcept
+\hyperlink{classAP__it_1_1____iterator}{\+\_\+\+\_\+iterator} \hyperlink{classAP__it_1_1____iterator_a690a182c9ef272c5acca82bb2dfe211e}{operator++} (int) noexcept
 \end{DoxyCompactItemize}
 \subsection*{Friends}
 \begin{DoxyCompactItemize}
@@ -42,13 +41,75 @@ pointer {\bfseries operator-\/$>$} () const noexcept
 \mbox{\Hypertarget{classAP__it_1_1____iterator_a58ed1dfd1f1b7dd9f3d4f2695f53ac12}\label{classAP__it_1_1____iterator_a58ed1dfd1f1b7dd9f3d4f2695f53ac12}} 
 {\footnotesize template$<$typename K , typename V , typename cmp $>$ }\\class {\bfseries B\+S\+T\+::bst}
 \item 
-\mbox{\Hypertarget{classAP__it_1_1____iterator_a2e5014cb825532053115734598e16318}\label{classAP__it_1_1____iterator_a2e5014cb825532053115734598e16318}} 
-bool {\bfseries operator==} (const \hyperlink{classAP__it_1_1____iterator}{\+\_\+\+\_\+iterator} \&a, const \hyperlink{classAP__it_1_1____iterator}{\+\_\+\+\_\+iterator} \&b)
+bool \hyperlink{classAP__it_1_1____iterator_a2e5014cb825532053115734598e16318}{operator==} (const \hyperlink{classAP__it_1_1____iterator}{\+\_\+\+\_\+iterator} \&a, const \hyperlink{classAP__it_1_1____iterator}{\+\_\+\+\_\+iterator} \&b)
 \item 
-\mbox{\Hypertarget{classAP__it_1_1____iterator_add0144e7693bde5e4b509b5fd8dc5c96}\label{classAP__it_1_1____iterator_add0144e7693bde5e4b509b5fd8dc5c96}} 
-bool {\bfseries operator!=} (const \hyperlink{classAP__it_1_1____iterator}{\+\_\+\+\_\+iterator} \&a, const \hyperlink{classAP__it_1_1____iterator}{\+\_\+\+\_\+iterator} \&b)
+bool \hyperlink{classAP__it_1_1____iterator_add0144e7693bde5e4b509b5fd8dc5c96}{operator!=} (const \hyperlink{classAP__it_1_1____iterator}{\+\_\+\+\_\+iterator} \&a, const \hyperlink{classAP__it_1_1____iterator}{\+\_\+\+\_\+iterator} \&b)
 \end{DoxyCompactItemize}
 
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename node, typename O$>$\newline
+class A\+P\+\_\+it\+::\+\_\+\+\_\+iterator$<$ node, O $>$}
+
+Iterator class for the bst\+\_\+tree with nodes having left and right children. The iterator has a pointer to a node called current. The aim of these iterators is to move easily following the nodes 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classAP__it_1_1____iterator_a7286a573bdc1fa300c664c316564c1a2}\label{classAP__it_1_1____iterator_a7286a573bdc1fa300c664c316564c1a2}} 
+\index{A\+P\+\_\+it\+::\+\_\+\+\_\+iterator@{A\+P\+\_\+it\+::\+\_\+\+\_\+iterator}!\+\_\+\+\_\+iterator@{\+\_\+\+\_\+iterator}}
+\index{\+\_\+\+\_\+iterator@{\+\_\+\+\_\+iterator}!A\+P\+\_\+it\+::\+\_\+\+\_\+iterator@{A\+P\+\_\+it\+::\+\_\+\+\_\+iterator}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+iterator()}{\_\_iterator()}}
+{\footnotesize\ttfamily template$<$typename node, typename O$>$ \\
+\hyperlink{classAP__it_1_1____iterator}{A\+P\+\_\+it\+::\+\_\+\+\_\+iterator}$<$ node, O $>$\+::\hyperlink{classAP__it_1_1____iterator}{\+\_\+\+\_\+iterator} (\begin{DoxyParamCaption}\item[{node $\ast$}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}, {\ttfamily [noexcept]}}
+
+Explicit constructor of iterator, it initializes its temporary node to given a node 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classAP__it_1_1____iterator_a8bbe7fd8bc25d7f80eecdec977272828}\label{classAP__it_1_1____iterator_a8bbe7fd8bc25d7f80eecdec977272828}} 
+\index{A\+P\+\_\+it\+::\+\_\+\+\_\+iterator@{A\+P\+\_\+it\+::\+\_\+\+\_\+iterator}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!A\+P\+\_\+it\+::\+\_\+\+\_\+iterator@{A\+P\+\_\+it\+::\+\_\+\+\_\+iterator}}
+\subsubsection{\texorpdfstring{operator$\ast$()}{operator*()}}
+{\footnotesize\ttfamily template$<$typename node, typename O$>$ \\
+reference \hyperlink{classAP__it_1_1____iterator}{A\+P\+\_\+it\+::\+\_\+\+\_\+iterator}$<$ node, O $>$\+::operator$\ast$ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+Dereferent operator, it dereference the iterator returning the value of the node the iterator is pointing to \mbox{\Hypertarget{classAP__it_1_1____iterator_a54350866b6f1b6a9be788805a1982142}\label{classAP__it_1_1____iterator_a54350866b6f1b6a9be788805a1982142}} 
+\index{A\+P\+\_\+it\+::\+\_\+\+\_\+iterator@{A\+P\+\_\+it\+::\+\_\+\+\_\+iterator}!operator++@{operator++}}
+\index{operator++@{operator++}!A\+P\+\_\+it\+::\+\_\+\+\_\+iterator@{A\+P\+\_\+it\+::\+\_\+\+\_\+iterator}}
+\subsubsection{\texorpdfstring{operator++()}{operator++()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename node, typename O$>$ \\
+\hyperlink{classAP__it_1_1____iterator}{\+\_\+\+\_\+iterator}\& \hyperlink{classAP__it_1_1____iterator}{A\+P\+\_\+it\+::\+\_\+\+\_\+iterator}$<$ node, O $>$\+::operator++ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+pre-\/increment operator ++, it easily moves from a node to the in order successor node along the tree \mbox{\Hypertarget{classAP__it_1_1____iterator_a690a182c9ef272c5acca82bb2dfe211e}\label{classAP__it_1_1____iterator_a690a182c9ef272c5acca82bb2dfe211e}} 
+\index{A\+P\+\_\+it\+::\+\_\+\+\_\+iterator@{A\+P\+\_\+it\+::\+\_\+\+\_\+iterator}!operator++@{operator++}}
+\index{operator++@{operator++}!A\+P\+\_\+it\+::\+\_\+\+\_\+iterator@{A\+P\+\_\+it\+::\+\_\+\+\_\+iterator}}
+\subsubsection{\texorpdfstring{operator++()}{operator++()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename node, typename O$>$ \\
+\hyperlink{classAP__it_1_1____iterator}{\+\_\+\+\_\+iterator} \hyperlink{classAP__it_1_1____iterator}{A\+P\+\_\+it\+::\+\_\+\+\_\+iterator}$<$ node, O $>$\+::operator++ (\begin{DoxyParamCaption}\item[{int}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+post-\/increment operator ++, create a temporary iterator to the current node and then increase current with pre-\/increment \mbox{\Hypertarget{classAP__it_1_1____iterator_ad592364949f9c5ff5173f39d31f0eb11}\label{classAP__it_1_1____iterator_ad592364949f9c5ff5173f39d31f0eb11}} 
+\index{A\+P\+\_\+it\+::\+\_\+\+\_\+iterator@{A\+P\+\_\+it\+::\+\_\+\+\_\+iterator}!operator-\/$>$@{operator-\/$>$}}
+\index{operator-\/$>$@{operator-\/$>$}!A\+P\+\_\+it\+::\+\_\+\+\_\+iterator@{A\+P\+\_\+it\+::\+\_\+\+\_\+iterator}}
+\subsubsection{\texorpdfstring{operator-\/$>$()}{operator->()}}
+{\footnotesize\ttfamily template$<$typename node, typename O$>$ \\
+pointer \hyperlink{classAP__it_1_1____iterator}{A\+P\+\_\+it\+::\+\_\+\+\_\+iterator}$<$ node, O $>$\+::operator-\/$>$ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+Arrow operator, it returns a pointer to the value of the node the iterator is pointing to 
+
+\subsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{classAP__it_1_1____iterator_add0144e7693bde5e4b509b5fd8dc5c96}\label{classAP__it_1_1____iterator_add0144e7693bde5e4b509b5fd8dc5c96}} 
+\index{A\+P\+\_\+it\+::\+\_\+\+\_\+iterator@{A\+P\+\_\+it\+::\+\_\+\+\_\+iterator}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!A\+P\+\_\+it\+::\+\_\+\+\_\+iterator@{A\+P\+\_\+it\+::\+\_\+\+\_\+iterator}}
+\subsubsection{\texorpdfstring{operator"!=}{operator!=}}
+{\footnotesize\ttfamily template$<$typename node, typename O$>$ \\
+bool operator!= (\begin{DoxyParamCaption}\item[{const \hyperlink{classAP__it_1_1____iterator}{\+\_\+\+\_\+iterator}$<$ node, O $>$ \&}]{a,  }\item[{const \hyperlink{classAP__it_1_1____iterator}{\+\_\+\+\_\+iterator}$<$ node, O $>$ \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+not equal \mbox{\Hypertarget{classAP__it_1_1____iterator_a2e5014cb825532053115734598e16318}\label{classAP__it_1_1____iterator_a2e5014cb825532053115734598e16318}} 
+\index{A\+P\+\_\+it\+::\+\_\+\+\_\+iterator@{A\+P\+\_\+it\+::\+\_\+\+\_\+iterator}!operator==@{operator==}}
+\index{operator==@{operator==}!A\+P\+\_\+it\+::\+\_\+\+\_\+iterator@{A\+P\+\_\+it\+::\+\_\+\+\_\+iterator}}
+\subsubsection{\texorpdfstring{operator==}{operator==}}
+{\footnotesize\ttfamily template$<$typename node, typename O$>$ \\
+bool operator== (\begin{DoxyParamCaption}\item[{const \hyperlink{classAP__it_1_1____iterator}{\+\_\+\+\_\+iterator}$<$ node, O $>$ \&}]{a,  }\item[{const \hyperlink{classAP__it_1_1____iterator}{\+\_\+\+\_\+iterator}$<$ node, O $>$ \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+two iterators are equal if they point to the same node 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

@@ -8,9 +8,12 @@
 
 namespace BST{
 	
-	//class templated on the values of the pair to be inserted in the tree K,V and on the 
-	// comparison method which is in this case is chosen to be std::less
-	//most of the implementation are performed on src/bst.cc
+	/**
+	 * Binary Search Tree class, templated on the values to be assigned to the nodes and on the comprison method
+	 * In this particular case, the data is initialised to a std::pair<key_type =K, value_typr=V> 
+	 * and the comparison method is chosen to be std::less<key_type>.
+	 * Most of the implementations are written in src/bst.cc
+	 */
 
 	template < class K, class V, class cmp=std::less<K> >
 	class bst{
@@ -21,12 +24,20 @@ namespace BST{
 		using const_iterator = typename AP_it::__iterator<AP_node::node<pair_type>,const pair_type>;
 		
 		private:
+			/**
+			 * Declaration of the "less" operator as a data memmber of the class
+			 * It will be called as op(LHS, RHS) and returns true if LHS < RHS
+			 */
+			cmp op; 
 			
-			cmp op; //defition of the operator less which will be called op
-			
-			std::unique_ptr<node_type> head;  //the tree has a head which points to the first node
+			/**
+			 * The tree has a head which points to the first inserted node
+			 */
+			std::unique_ptr<node_type> head;  
 
-			//function which return the pointer to the leftmost node
+			/**
+			 * Returns a pointer to the leftmost node 
+			 */
 			node_type* __begin() const noexcept{
 				if (!head) return nullptr;
 				
@@ -36,7 +47,9 @@ namespace BST{
 				return t;
 			}
 
-			//function returning the pointer to the one past the rightmost node 
+			/**
+			 * Returns a pointer to the one past the rightmost node 
+			 */
 			node_type* __end() const noexcept {
 				auto t = head.get();
 				if(t == nullptr)
@@ -48,22 +61,46 @@ namespace BST{
 				}
 			}
 
-			//function which erase the head which is called within the public erase function
+			/**
+			 * erases the head; it is called within the public erase() function
+			 */
 			void erase_head();
 			
-			//function which erase a generic node within the tree which is
-			//called from the publica erase function
+			/**
+			 * erases a generic node within the tree;
+			 * it is called within the public erase() function
+			 */
 			void erase_generic(iterator it_erase);
 
   	
 		public:
 
-			bst() noexcept : op{}, head{nullptr} {}  //empty constructor 
-			bst(bst&& ) noexcept = default;   //default move constructor
-			bst& operator=(bst&& ) noexcept = default; //default move assignment
+			/**
+			 * Default (empty) constructor of a BST;
+			 * it initialize the comparison method to default
+			 * and the head to nullptr
+			 */
+			explicit bst() noexcept : op{}, head{nullptr} {}
 
-			bst(const bst& ); //copy constructor
-			bst& operator=(const bst& tree ){ //copy assignement
+			/**
+			 * Default move constructor of a BST
+			 */
+			explicit bst(bst&&) noexcept = default;
+
+			/**
+			 * Default move assignement of a BST
+			 */
+			bst& operator=(bst&&) noexcept = default;
+
+			/**
+			 * Copy constructor of a BST
+			 */
+			explicit bst(const bst&) noexcept;
+
+			/**
+			 * Copy assignement
+			 */
+			bst& operator=(const bst& tree){
 				(*this).clear;
     		for(auto i=tree.begin(); i != tree.end(); ++i){
       		(*this).insert(*i);
@@ -71,59 +108,100 @@ namespace BST{
   			return *this;	
 			}
 
-
-			
+			/**
+			 * Emplace function, inserts a node with the simple expression emplace(a,b)
+			 * while insert needs an explicit pair_type
+			 */
 			template<class... Types>  // variadic templates
-      std::pair<iterator,bool> emplace(Types&&... args) { //insert for variadics arguments
+      std::pair<iterator,bool> emplace(Types&&... args) {
            return insert(pair_type{std::forward<Types>(args)...});
       }
 
-			
-      //insert operator accepting both rvalue and lvalue variable thanks to the 
-      //extra template OT. It returns a pair made up by the iterator pointing to the node in which
-      //such key was inserted and a bool which is true if the key has been inserted 
+			/**
+       * insert operator accepts both rvalue and lvalue variables thanks to the 
+       * extra template OT. It returns a pair made up by the iterator pointing to the inserted node
+       * and a bool which is true if the key has been inserted or false if it was already present
+       */
   		template<class OT>
 		  std::pair<iterator, bool> insert(OT&& x);  
 
-		  //begin function returning the iterator pointing to the first node
+		  /**
+		   * returns an iterator pointing to the first node
+		   */
 			iterator begin() noexcept { return iterator{__begin()};}
+		  /**
+		   * returns a constant iterator pointing to the first node
+		   */
 			const_iterator begin() const noexcept{ return const_iterator{__begin()};}
+		  /**
+		   * returns a constant iterator pointing to the first node
+		   */			
 			const_iterator cbegin() const noexcept{ return const_iterator{__begin()};}
 			
-			//iterator pointing to the end node
+		  /**
+		   * returns an iterator pointing to the node found with __end()
+		   */
 			iterator end() noexcept	{ return iterator{__end()};}
+		  /**
+		   * returns a constant iterator pointing to the node found with __end()
+		   */
 			const_iterator end() const noexcept { return const_iterator{__end()};}
+		  /**
+		   * returns a constant iterator pointing to the node found with __end()
+		   */
 			const_iterator cend() const noexcept { return const_iterator{__end()};}
 
-			//function returning the iterator pointing to 
-			//the node having key x if present otherwise nullptr
+			/**
+			 * navigate from the head using the op operator and stopping if the key is found.
+			 * If key x is present, it returns the iterator pointing to the corresponding node;
+			 * otherwise ir returns nullptr
+			 */
 			iterator find(const K& x);
-
+			/**
+			 * const interator version of find() funxtion
+			 */
 			const_iterator find(const K& x) const;
 
-			//function which clears the whole bst
+			/**
+			 * clears the whole bst by resetting the head to nullptr
+			 */
 			void clear(){
 				this->head.reset();
 			}
 
-			//function erasing the node having the key x
+			/**
+			 * erases the node having the key x if present; is such a case the tree needs
+			 * to be "jointed" back in order not to lose the parent-child relationships
+			 * see src/bst.cc implementation for a step-by-step explanation
+			 */ 
 			void erase(const K& x);
 
-			//function which balance the the bst
+			/**
+			 * balances the the bst by successively inserting the median of the odered
+			 * sub-vectors associated with the tree. See src/bst.cc implementation for a step-by-step explanation
+			 */
     	void balance();
-    	//helping function for balance
+
+    	/**
+    	 * helping function for balance()
+    	 */
     	void sortedArrayToBST(std::vector<pair_type> data,int start, int end,bst &balanced_tree);
 
-    	//put-to operator returning the value corresponding such key if present
-    	//otherwise it adds the node and set the value to zero
-    	//this can act both on rvalue and lvalue thakns to 
-    	//the template OT
+    	/**
+    	 * put-to operator, returs the value corresponding to such key if present;
+    	 * otherwise it adds the node and set the value to zero or to the rhs_value, according to
+    	 * bst[key] = rhs_value.
+    	 * It can act both on rvalue and lvalue thanks to the extra template OT
+    	 */
 			template<class OT>
  			V& operator[](OT&& x){
  				return insert(pair_type{std::forward<OT>(x), V()}).first->second;
  			} 
 
- 			//stream operator for printing the tree
+ 			/**
+ 			 * stream operator, prints each node of the tree from the first to the last
+ 			 * node according to the comparison method
+ 			 */
 			friend
 			std::ostream& operator<<(std::ostream& os, const bst& x){
 				if(x.head.get() == nullptr)
@@ -131,6 +209,7 @@ namespace BST{
 
 				for ( auto v : x )
 	    			std::cout << "Key = " << v.first << "\tValue = " << v.second  << std::endl;
+	    		
 				return os;
 			}
 				

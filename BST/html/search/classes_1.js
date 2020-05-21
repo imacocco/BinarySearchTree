@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['asserthelper',['AssertHelper',['../structinternal_1_1AssertHelper.html',1,'internal']]]
+  ['bst',['bst',['../classBST_1_1bst.html',1,'BST']]]
 ];

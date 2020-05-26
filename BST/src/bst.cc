@@ -7,12 +7,33 @@
  *COPY CONSTRUCTOR: deep copy of a given tree
  */
 template < class K, class V, class cmp >
-BST::bst<K,V,cmp>::bst(const BST::bst<K,V,cmp>& tree) noexcept{
-  for(auto i=tree.begin(); i != tree.end(); ++i){
-      (*this).insert(*i);
-  }
+BST::bst<K,V,cmp>::bst(const BST::bst<K,V,cmp>& tree) : op{tree.op},
+    head{ std::unique_ptr<AP_node::node<std::pair<const K,V>>>( new AP_node::node<std::pair<const K,V>>(tree.head.get()->value, nullptr) ) } {
+  if (tree.head.get()->left)
+    __copy(tree, tree.head.get()->left);
+          
+  if (tree.head.get()->right) 
+    __copy(tree, tree.head.get()->right);
+   
 }
 
+/*
+ * single node copy helper
+ */
+
+template < class K, class V, class cmp >
+void BST::bst<K,V,cmp>::__copy(const BST::bst<K,V,cmp>& tree, std::unique_ptr<AP_node::node<std::pair<const K, V>>>& a) {
+  
+  this->emplace(a.get()->value);
+
+  if (a.get()->left)
+    __copy(tree, a.get()->left);
+            
+  if (a.get()->right)
+    __copy(tree, a.get()->right);
+            
+  return;
+        }
 //*******************************************************
 //FIND: definition of find function;
 //it simply navigates from the head using the op operator and 
@@ -361,7 +382,7 @@ void BST::bst<K,V,cmp>::erase_head(){
 //otherwise it returns the iterator pointing to the already present node and a bool=false
 template < class K, class V, class cmp >
 template<class OT>
-std::pair<AP_it::__iterator<AP_node::node<std::pair<const K,V>>,std::pair<const K,V>>, bool> BST::bst<K,V,cmp>::insert(OT&& x){
+std::pair< AP_it::__iterator<AP_node::node<std::pair<const K,V>>, std::pair<const K,V> >, bool> BST::bst<K,V,cmp>::insert(OT&& x){
 
   auto t = head.get();
 
@@ -387,7 +408,7 @@ std::pair<AP_it::__iterator<AP_node::node<std::pair<const K,V>>,std::pair<const 
     }
 
     head.reset(new node_type{std::forward<OT>(x), nullptr}) ;
-      return std::make_pair(iterator{head.get()},true) ;
+    return std::make_pair(iterator{head.get()},true) ;
 
 }  
 

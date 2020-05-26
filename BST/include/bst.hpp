@@ -80,7 +80,7 @@ namespace BST{
 			 * it initialize the comparison method to default
 			 * and the head to nullptr
 			 */
-			explicit bst() noexcept : op{}, head{nullptr} {}
+			bst() noexcept : op{}, head{nullptr} {}
 
 			/**
 			 * Default move constructor of a BST
@@ -95,17 +95,17 @@ namespace BST{
 			/**
 			 * Copy constructor of a BST
 			 */
-			explicit bst(const bst&) noexcept;
+			explicit bst(const bst&);		
 
 			/**
-			 * Copy assignement
+			 * Copy assignement	
 			 */
 			bst& operator=(const bst& tree){
+
 				(*this).clear;
-    		for(auto i=tree.begin(); i != tree.end(); ++i){
-      		(*this).insert(*i);
-  			}
-  			return *this;	
+				bst tree_new(tree);
+				*this = std::move(tree_new);
+				return *this;
 			}
 
 			/**
@@ -116,6 +116,11 @@ namespace BST{
       std::pair<iterator,bool> emplace(Types&&... args) {
            return insert(pair_type{std::forward<Types>(args)...});
       }
+
+      /**
+       * helper copy function
+       */
+      void __copy(const bst& t, std::unique_ptr<node_type>&);
 
 			/**
        * insert operator accepts both rvalue and lvalue variables thanks to the 

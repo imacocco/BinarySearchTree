@@ -31,20 +31,20 @@ namespace AP_node{
 		std::unique_ptr<node<T>> right;
 		/**
 		 * pointer to the upper (parent) node. It cannot be unique as it can be possibly pointed
-		 * by two different childern
+		 * by two different children
 		 */		
 		node<T>* upper;
 
 		/**
 		 * standard constructor setting the value to zero and to nullptr all the pointers
 		 */
-		explicit node() noexcept : value{}, left{nullptr}, right{nullptr}, upper{nullptr} {} 
+		node() noexcept : value{}, left{nullptr}, right{nullptr}, upper{nullptr} {} 
 
 		/**
 		 * custom constructor copying the value and setting only the upper pointer.
 		 * Used whenever a left-value is given for the insertion in the tree
 		 */
-    explicit node(const T& v, node<T>* pu) noexcept : value{v}, left{nullptr}, right{nullptr}, upper{pu}{ 
+    node(const T& v, node<T>* pu) noexcept : value{v}, left{nullptr}, right{nullptr}, upper{pu}{ 
       #ifdef __DEBUG_NODE
         std::cout << "CALL: custom ctor AP_node::node" << std::endl;
       #endif
@@ -54,7 +54,7 @@ namespace AP_node{
 		 * custom move constructor, moving the value to the node and setting only the upper pointer.
 		 * Used whenever a right-value is given for the insertion in the tree
 		 */
-		explicit node(T&& v, node<T>* pu) noexcept : value{std::move(v)}, left{nullptr}, right{nullptr}, upper{pu}{
+		node(T&& v, node<T>* pu) noexcept : value{std::move(v)}, left{nullptr}, right{nullptr}, upper{pu}{
 	      #ifdef __DEBUG_NODE
           std::cout << "CALL: custom mctor AP_node::node" << std::endl;
           #endif
